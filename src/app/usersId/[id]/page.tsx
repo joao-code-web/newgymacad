@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import "./page.css";
+
 interface User {
     _id: string;
     name: string;
@@ -12,6 +14,7 @@ interface User {
 export default function MonthId({ params }: { params: { id: string } }) {
     const [users, setUsers] = useState<User[]>([]);
     const [formData, setFormData] = useState({ name: "", value: "" });
+    const [monthName, setMonthName] = useState("");
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -24,6 +27,17 @@ export default function MonthId({ params }: { params: { id: string } }) {
         };
 
         fetchUsers();
+
+        const fetchMonthName = async () => {
+            try {
+                const monthResponse = await axios.get(`/api/months/${params.id}`);
+                setMonthName(monthResponse.data.name);
+            } catch (error) {
+                console.error("Error fetching month:", error);
+            }
+        };
+
+        fetchMonthName();
     }, [params.id]);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -56,17 +70,10 @@ export default function MonthId({ params }: { params: { id: string } }) {
     };
 
     return (
-        <div>
-            <h1>Usuários do Mês {params.id}</h1>
-            <ul>
-                {users.map((user) => (
-                    <li key={user._id}>
-                        {user.name} - {user.value}
-                        <button onClick={() => handleDelete(user._id)}>Deletar</button>
-                    </li>
-                ))}
-            </ul>
-            <form onSubmit={handleSubmit}>
+        <div className="container">
+            <h1>Usuários do Mês {monthName}</h1>
+
+            <form className="user-form dark-theme" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     name="name"
@@ -81,8 +88,32 @@ export default function MonthId({ params }: { params: { id: string } }) {
                     onChange={handleChange}
                     placeholder="Valor"
                 />
-                <button type="submit">Adicionar Usuário</button>
+                <button className="add-button" type="submit">Adicionar Usuário</button>
             </form>
+
+            <table className="user-table dark-theme">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((user) => (
+                        <tr key={user._id}>
+                            <td>{user.name}</td>
+                            <td>{user.value}</td>
+                            <td>{user.data}</td>
+                            <td>
+                                <button className="delete-button" onClick={() => handleDelete(user._id)}>Deletar</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
         </div>
     );
 }

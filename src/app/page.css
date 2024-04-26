@@ -1,0 +1,123 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  /* Adicionando wrap para lidar com telas menores */
+  margin-bottom: 20px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  /* Adicionando margem inferior para espaçamento */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #ccc;
+}
+
+.months-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.month-item {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.month-item:hover {
+  transform: translateY(-5px);
+}
+
+.month-box {
+  padding: 20px;
+  background-color: #111010;
+}
+
+.month-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link,
+.delete-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.link {
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+}
+
+.link:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 600px) {
+  .form {
+    flex-direction: column;
+    /* Alterando para layout de coluna em telas menores */
+  }
+
+  .input {
+    flex: 1 0 auto;
+    /* Definindo flex-grow: 1 e flex-shrink: 0 */
+    margin-right: 0;
+  }
+
+  .button {
+    flex: 1;
+    /* Definindo largura total para o botão */
+    margin-top: 10px;
+    /* Adicionando margem superior para espaçamento */
+  }
+}

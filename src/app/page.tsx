@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 
+import "../app/page.css"
+
 interface Month {
   _id: string;
   name: string;
@@ -50,31 +52,41 @@ const AllMonths = () => {
   };
 
   return (
-    <div>
-      <h2>Adicionar Novo Mês</h2>
-      <form onSubmit={handleAddMonth}>
-        <input
-          type="text"
-          placeholder="Nome do Mês"
-          value={newMonthName}
-          onChange={(e) => setNewMonthName(e.target.value)}
-        />
-        <button type="submit">Adicionar</button>
-      </form>
+    <div className="container">
+      <div className="section">
+        <h2>Adicionar Novo Mês</h2>
+        <form className="form" onSubmit={handleAddMonth}>
+          <input
+            className="input"
+            type="text"
+            placeholder="Nome do Mês"
+            value={newMonthName}
+            onChange={(e) => setNewMonthName(e.target.value)}
+          />
+          <button className="button" type="submit">Adicionar</button>
+        </form>
+      </div>
 
-      <hr />
+      <hr className="divider" />
 
-      <h2>Todos os Meses</h2>
-      <ul>
-        {months.map((month) => (
-          <div key={month._id}>
-            <li>{month.name}</li>
-            <Link href={`usersId/${month._id}`}>osjasj</Link>
-            <button onClick={() => handleDeleteMonth(month._id)}>Deletar</button>
-          </div>
-        ))}
-      </ul>
+      <div className="section">
+        <h2>Todos os Meses</h2>
+        <div className="months-container">
+          {months.map((month) => (
+            <div className="month-item" key={month._id}>
+              <div className="month-box">
+                <div className="month-name">{month.name}</div>
+                <div className="links">
+                  <Link href={`usersId/${month._id}`}>Ver Usuários</Link>
+                  <button className="delete-button" onClick={() => handleDeleteMonth(month._id)}>Deletar</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
+
   );
 };
 

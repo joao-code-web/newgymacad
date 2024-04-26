@@ -8,7 +8,6 @@ export const GET = async () => {
     try {
         await connect();
         const months = await MonthModel.find(); // Alterado para buscar meses em vez de usuários
-        console.log(months)
         return NextResponse.json(months); // Retornar os meses encontrados
     } catch (error) {
         console.error("Error in fetching months:", error);
